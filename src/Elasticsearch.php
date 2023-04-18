@@ -62,7 +62,7 @@ class Elasticsearch extends CodeceptionModule
      */
     public $elasticsearchClient;
 
-    protected $config = [
+    protected array $config = [
         'hosts'               => [
             [
                 'host' => 'localhost',
@@ -80,7 +80,7 @@ class Elasticsearch extends CodeceptionModule
         'indexes'             => null
     ];
 
-    protected $requiredFields = ['hosts'];
+    protected array $requiredFields = ['hosts'];
 
     /*
      * Connect to elasticsearch hosts
