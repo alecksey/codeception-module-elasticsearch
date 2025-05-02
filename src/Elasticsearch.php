@@ -87,7 +87,29 @@ class Elasticsearch extends CodeceptionModule
      */
     protected function connect(): void
     {
-        $this->elasticsearchClient = ClientBuilder::create()->setHosts($this->config['hosts'])->build();
+        $hosts = [];
+        $authUser = '';
+        $authPassword = '';
+
+        foreach ($this->config['hosts'] as $host) {
+            $hosts[] = $host['host'] . ':' . ($host['port'] ?? '9200');
+
+            if(isset($host['user']) && !empty($host['user'])) {
+                $authUser = $host['user'];
+            }
+
+            if(isset($host['pass']) && !empty($host['pass'])) {
+                $authPassword = $host['pass'];
+            }
+        }
+
+        $clientBuilder = ClientBuilder::create()->setHosts($hosts);
+
+        if($authUser !== '') {
+            $clientBuilder->setBasicAuthentication($authUser, $authPassword);
+        }
+
+        $this->elasticsearchClient = $clientBuilder->build();
     }
 
     /*
