@@ -243,7 +243,7 @@ class Elasticsearch extends CodeceptionModule
                 'index' => $index,
                 'id'    => $id
             ]
-        );
+        )->asArray();
     }
 
     /**
@@ -263,7 +263,7 @@ class Elasticsearch extends CodeceptionModule
                 'id'    => $id,
                 'body'  => $body
             ]
-        );
+        )->asArray();
 
         $this->elasticsearchClient->indices()->refresh();
 
